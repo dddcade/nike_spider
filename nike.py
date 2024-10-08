@@ -113,7 +113,7 @@ async def product(page, href):
 
 async def main():
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         while True:
             page_count = 0 
@@ -127,7 +127,7 @@ async def main():
             await page.wait_for_load_state('load')
             print("页面下滑中......")
             i = 0
-            while i < 2:
+            while i < 2:  #滑动页面获取商品链接
                 await page.evaluate("() => window.scrollTo(0,document.body.scrollHeight)")
                 await page.wait_for_load_state('load')
                 await asyncio.sleep(2)
